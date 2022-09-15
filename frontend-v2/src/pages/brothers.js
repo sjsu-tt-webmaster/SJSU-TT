@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Menu, Dropdown, Button, Row, Col, Spin } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import brotherStyles from '../styles/pages/brothers.module.scss';
+
+import { actives, alumni } from '../util/brotherInfo';
 
 import CURR_PLEDGE_CLASS from '../util/curr-pledge-class';
 import brothersBanner from '../images/brothers-banner.jpg';
@@ -22,10 +24,24 @@ const Brothers = (props) => {
   const fetchBrothers = async () => {
     setIsFetching(true);
     const tab = parseQueryParameter();
-    const apiResponse = await axios.get(
-      `${process.env.REACT_APP_BACKEND_API_URL}/api/brothers?brotherType=${tab}`
-    );
-    setBrothers(apiResponse.data);
+    // const apiResponse = await axios
+    //   .get(
+    //     `${process.env.REACT_APP_BACKEND_API_URL}/api/brothers?brotherType=${tab}`
+    //   )
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // setBrothers(apiResponse.data);
+
+    if (tab === 'Actives') {
+      setBrothers(actives);
+    } else {
+      setBrothers(alumni);
+    }
+
     setIsFetching(false);
   };
 
@@ -153,7 +169,8 @@ const DropDownMenu = (selectedTab) => {
     <Menu>
       <Menu.Item key="1">
         <Link
-          to={`/brothers?tab=${selectedTab === 'Actives' ? 'alumni' : 'actives'
+          to={`/brothers?tab=${
+            selectedTab === 'Actives' ? 'alumni' : 'actives'
           }`}
         >
           {selectedTab === 'Actives' ? 'Alumni' : 'Actives'}

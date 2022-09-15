@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import DashboardSidebar from '../components/DashboardSidebar';
