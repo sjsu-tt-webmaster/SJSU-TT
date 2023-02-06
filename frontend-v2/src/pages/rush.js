@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Row, Col, Divider } from 'antd';
 import rushStyles from '../styles/pages/rush.module.scss';
 import rushBanner from '../images/rush-banner.jpg';
